@@ -1,0 +1,35 @@
+﻿@model List<DAL.Producto>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Listado de Productos</title>
+</head>
+<body>
+    <div>
+        <h1>Listado de Productos</h1>
+        <div>
+            <table>
+                <tr>
+                    <th>IdProducto</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                </tr>
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@p.IdProducto</td>
+                        <td>@p.Nombre</td>
+                        <td>@p.Precio</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</body>
+</html>
