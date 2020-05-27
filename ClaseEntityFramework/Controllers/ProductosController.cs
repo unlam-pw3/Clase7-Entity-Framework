@@ -9,12 +9,26 @@ namespace ClaseEntityFramework.Controllers
 {
     public class ProductosController : Controller
     {
+        ProductoRepository prodRepository = new ProductoRepository();
+
         // GET: Productos
         public ActionResult Index()
         {
-            ProductoRepository prodRepository = new ProductoRepository();
             List<Producto> productos = prodRepository.ObtenerTodos();
             return View(productos);
+        }
+
+        [HttpGet]
+        public ActionResult Crear()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Crear(Producto prod)
+        {
+            prodRepository.Crear(prod);
+            return RedirectToAction("Index");
         }
     }
 }
