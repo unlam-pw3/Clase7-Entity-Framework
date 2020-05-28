@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Partials\Producto.cs" />
+    <Compile Include="Partials\ProductoMetadata.cs" />
     <Compile Include="PracticaEFModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

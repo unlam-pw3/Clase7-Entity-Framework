@@ -27,8 +27,15 @@ namespace ClaseEntityFramework.Controllers
         [HttpPost]
         public ActionResult Crear(Producto prod)
         {
-            prodRepository.Crear(prod);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                prodRepository.Crear(prod);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(prod);
+            }
         }
     }
 }
