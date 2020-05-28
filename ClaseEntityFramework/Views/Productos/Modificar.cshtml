@@ -14,7 +14,7 @@
     <div>
         <h1>Modificar Producto</h1>
         <form action="/Productos/Modificar" method="post">
-            @Html.HiddenFor(o=> o.IdProducto)
+            @Html.HiddenFor(o => o.IdProducto)
             <div>
                 @Html.LabelFor(o => Model.Nombre)
                 @Html.EditorFor(o => Model.Nombre)
@@ -24,6 +24,26 @@
                 @Html.LabelFor(o => Model.Precio)
                 @Html.EditorFor(o => Model.Precio)
                 @Html.ValidationMessageFor(o => o.Precio)
+            </div>
+
+            <div>
+                <select name="IdMarca">
+                    <option value="">Elegir</option>
+                    @foreach (DAL.Marca marca in ViewBag.TodasLasMarcas)
+                    {
+                        if (Model.IdMarca.HasValue && Model.IdMarca.Value == marca.IdMarca)
+                        {
+                            <option value="@marca.IdMarca" selected="selected">@marca.Nombre</option>
+                        }
+                        else
+                        {
+                            <option value="@marca.IdMarca">@marca.Nombre</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div>
+                Nueva Marca: <input type="text" name="OtraMarca" />
             </div>
 
             <input type="submit" value="Guardar" />

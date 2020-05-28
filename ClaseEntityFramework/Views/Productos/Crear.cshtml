@@ -1,39 +1,45 @@
 ﻿@model DAL.Producto
-    @{
-        Layout = null;
-    }
+@{
+    Layout = null;
+}
 
-    <!DOCTYPE html>
+<!DOCTYPE html>
 
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Crear Producto</title>
-    </head>
-    <body>
-        <div>
-            <h1>Crear Producto</h1>
-            <form action="/Productos/Crear" method="post">
-                <div>
-                    @Html.LabelFor(o => Model.Nombre)
-                    @Html.EditorFor(o => Model.Nombre)
-                    @Html.ValidationMessageFor(o => o.Nombre)
-                </div>
-                <div>
-                    @Html.LabelFor(o => Model.Precio)
-                    @Html.EditorFor(o => Model.Precio)
-                    @Html.ValidationMessageFor(o => o.Precio)
-                </div>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Crear Producto</title>
+</head>
+<body>
+    <div>
+        <h1>Crear Producto</h1>
+        <form action="/Productos/Crear" method="post">
+            <div>
+                @Html.LabelFor(o => Model.Nombre)
+                @Html.EditorFor(o => Model.Nombre)
+                @Html.ValidationMessageFor(o => o.Nombre)
+            </div>
+            <div>
+                @Html.LabelFor(o => Model.Precio)
+                @Html.EditorFor(o => Model.Precio)
+                @Html.ValidationMessageFor(o => o.Precio)
+            </div>
 
+            <div>
                 <select name="IdMarca">
+                    <option value="">Elegir</option>
                     @foreach (DAL.Marca marca in ViewBag.TodasLasMarcas)
                     {
                         <option value="@marca.IdMarca">@marca.Nombre</option>
                     }
                 </select>
+            </div>
+            <div>
+                Nueva Marca: <input type="text" name="OtraMarca" />
+            </div>
 
-                <input type="submit" value="Crear" />
-            </form>
-        </div>
-    </body>
+            <input type="submit" value="Crear" />
+        </form>
+    </div>
+</body>
 </html>

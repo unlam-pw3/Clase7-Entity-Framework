@@ -8,6 +8,8 @@ namespace DAL
 {
     public class MarcaRepository : BaseRepository<Marca>
     {
-       
+        public MarcaRepository(PracticaEFEntities context) : base(context)
+        {
+        }
     }
 }

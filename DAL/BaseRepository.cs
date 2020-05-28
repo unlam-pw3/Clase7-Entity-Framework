@@ -9,14 +9,15 @@ namespace DAL
         protected PracticaEFEntities ctx { get; set; }
         protected DbSet<T> dbSet;
 
-        public BaseRepository()
+        public BaseRepository(PracticaEFEntities context)
         {
-            ctx = new PracticaEFEntities();
+            ctx = context;
             dbSet = ctx.Set<T>();
         }
         public void Crear(T entity)
         {
             dbSet.Add(entity);
+            ctx.SaveChanges();
         }
 
         public void Eliminar(int id)

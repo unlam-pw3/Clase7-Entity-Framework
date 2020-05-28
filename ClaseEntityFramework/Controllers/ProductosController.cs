@@ -9,9 +9,14 @@ namespace ClaseEntityFramework.Controllers
 {
     public class ProductosController : Controller
     {
-        ProductoRepository prodRepository = new ProductoRepository();
-        MarcaRepository marcaRepository = new MarcaRepository();
-
+        ProductoRepository prodRepository;
+        MarcaRepository marcaRepository;
+        public ProductosController()
+        {
+            PracticaEFEntities ctx = new PracticaEFEntities();
+            prodRepository = new ProductoRepository(ctx);
+            marcaRepository = new MarcaRepository(ctx);
+        }
         // GET: Productos
         public ActionResult Index()
         {
@@ -32,11 +37,20 @@ namespace ClaseEntityFramework.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!string.IsNullOrEmpty(Request["OtraMarca"]))
+                {
+                    Marca marcaNueva = new Marca();
+                    marcaNueva.Nombre = Request["OtraMarca"];
+                    marcaRepository.Crear(marcaNueva);
+                    prod.Marca = marcaNueva;
+                }
                 prodRepository.Crear(prod);
                 return RedirectToAction("Index");
             }
             else
             {
+                List<Marca> todasLasMarcas = marcaRepository.ObtenerTodos();
+                ViewBag.TodasLasMarcas = todasLasMarcas;
                 return View(prod);
             }
         }
@@ -49,12 +63,24 @@ namespace ClaseEntityFramework.Controllers
             {
                 return RedirectToAction("Index");
             }
+
+            List<Marca> todasLasMarcas = marcaRepository.ObtenerTodos();
+            ViewBag.TodasLasMarcas = todasLasMarcas;
+
             return View(prod);
         }
 
         [HttpPost]
         public ActionResult Modificar(Producto prod)
         {
+            if (!string.IsNullOrEmpty(Request["OtraMarca"]))
+            {
+                Marca marcaNueva = new Marca();
+                marcaNueva.Nombre = Request["OtraMarca"];
+                marcaRepository.Crear(marcaNueva);
+                prod.Marca = marcaNueva;
+            }
+
             prodRepository.Modificar(prod);
             return RedirectToAction("Index");
         }
