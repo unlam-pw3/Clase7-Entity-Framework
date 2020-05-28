@@ -67,9 +67,8 @@ namespace DAL
             if (prodAEliminar != null)
             {
                 ctx.Producto.Remove(prodAEliminar);
+                ctx.SaveChanges();
             }
-
-            ctx.SaveChanges();
         }
     }
 }

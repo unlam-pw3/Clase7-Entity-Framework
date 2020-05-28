@@ -55,5 +55,13 @@ namespace ClaseEntityFramework.Controllers
             prodRepository.Modificar(prod);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult Eliminar(int id)
+        {
+            prodRepository.Eliminar(id);
+            
+            return RedirectToAction("Index");
+        }
     }
 }
