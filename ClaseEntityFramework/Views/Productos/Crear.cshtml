@@ -25,6 +25,13 @@
                     @Html.ValidationMessageFor(o => o.Precio)
                 </div>
 
+                <select name="IdMarca">
+                    @foreach (DAL.Marca marca in ViewBag.TodasLasMarcas)
+                    {
+                        <option value="@marca.IdMarca">@marca.Nombre</option>
+                    }
+                </select>
+
                 <input type="submit" value="Crear" />
             </form>
         </div>

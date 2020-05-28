@@ -10,6 +10,7 @@ namespace ClaseEntityFramework.Controllers
     public class ProductosController : Controller
     {
         ProductoRepository prodRepository = new ProductoRepository();
+        MarcaRepository marcaRepository = new MarcaRepository();
 
         // GET: Productos
         public ActionResult Index()
@@ -21,6 +22,8 @@ namespace ClaseEntityFramework.Controllers
         [HttpGet]
         public ActionResult Crear()
         {
+            List<Marca> todasLasMarcas = marcaRepository.ObtenerTodos();
+            ViewBag.TodasLasMarcas = todasLasMarcas;
             return View();
         }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class ProductoRepository
+    public class ProductoRepository : IRepository<Producto>
     {
         protected PracticaEFEntities ctx { get; set; }
 

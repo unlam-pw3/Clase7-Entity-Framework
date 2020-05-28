@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseRepository.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="Marca.cs">
+      <DependentUpon>PracticaEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MarcaRepository.cs" />
     <Compile Include="Partials\Producto.cs" />
     <Compile Include="Partials\ProductoMetadata.cs" />
     <Compile Include="PracticaEFModel.Context.cs">
