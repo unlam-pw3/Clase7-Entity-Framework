@@ -37,5 +37,23 @@ namespace ClaseEntityFramework.Controllers
                 return View(prod);
             }
         }
+
+        [HttpGet]
+        public ActionResult Modificar(int id)
+        {
+            Producto prod = prodRepository.ObtenerPorId(id);
+            if (prod == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(prod);
+        }
+
+        [HttpPost]
+        public ActionResult Modificar(Producto prod)
+        {
+            prodRepository.Modificar(prod);
+            return RedirectToAction("Index");
+        }
     }
 }

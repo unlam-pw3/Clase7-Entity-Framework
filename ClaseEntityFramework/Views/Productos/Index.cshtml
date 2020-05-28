@@ -19,6 +19,7 @@
                     <th>IdProducto</th>
                     <th>Nombre</th>
                     <th>Precio</th>
+                    <th>Modificar</th>
                 </tr>
                 @foreach (var p in Model)
                 {
@@ -26,6 +27,7 @@
                         <td>@p.IdProducto</td>
                         <td>@p.Nombre</td>
                         <td>@p.Precio</td>
+                        <td><a href="/Productos/Modificar/@p.IdProducto">Modificar</a></td>
                     </tr>
                 }
             </table>

@@ -49,6 +49,18 @@ namespace DAL
             }
         }
 
+        public void Modificar(Producto prod)
+        {
+            Producto prodEnDB = ObtenerPorId(prod.IdProducto);
+            if (prodEnDB != null)
+            {
+                prodEnDB.Precio = prod.Precio;
+                prodEnDB.Nombre = prod.Nombre;
+
+                ctx.SaveChanges();
+            }
+        }
+
         public void Eliminar(int id)
         {
             Producto prodAEliminar = ObtenerPorId(id);
