@@ -30,5 +30,16 @@ namespace DAL
             }
         }
 
+        public List<Producto> ObtenerPorMarca(int idMarca)
+        {
+            //Otra forma a traves de Marca
+            //Marca m = ctx.Marca.FirstOrDefault(o => o.IdMarca == idMarca);
+            //if (m == null)
+            //    return new List<Producto>();
+            //return m.Producto.ToList();
+
+            return ctx.Producto.Where(o => o.IdMarca == idMarca).ToList();
+        }
+
     }
 }

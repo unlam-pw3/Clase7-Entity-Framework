@@ -14,6 +14,17 @@
     <div>
         <h1>Listado de Productos</h1>
         <div>
+            <form action="/Productos/IndexPost" method="post">
+                Marca:
+                <select name="IdMarca">
+                    <option value="0">Todas</option>
+                    @foreach (DAL.Marca m in ViewBag.Marcas)
+                    {
+                        <option value="@m.IdMarca">@m.Nombre</option>
+                    }
+                </select>
+                <input type="submit" value="Filtrar" />
+            </form>
             <table>
                 <tr>
                     <th>IdProducto</th>

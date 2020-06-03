@@ -20,8 +20,28 @@ namespace ClaseEntityFramework.Controllers
         // GET: Productos
         public ActionResult Index()
         {
+            ViewBag.Marcas = marcaRepository.ObtenerTodos();
             List<Producto> productos = prodRepository.ObtenerTodos();
             return View(productos);
+        }
+
+        [HttpPost]
+        public ActionResult IndexPost()
+        {
+            ViewBag.Marcas = marcaRepository.ObtenerTodos();
+            List<Producto> productos;
+
+            if(string.IsNullOrEmpty(Request["IdMarca"]) || Request["IdMarca"] == "0")
+            {
+                 productos = prodRepository.ObtenerTodos();
+            }
+            else
+            {
+                int idMarca = Int32.Parse(Request["IdMarca"]);
+                productos = prodRepository.ObtenerPorMarca(idMarca);
+            }
+
+            return View("Index", productos);
         }
 
         [HttpGet]
