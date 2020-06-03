@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PracticaEFModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Local">
+          <Key>
+            <PropertyRef Name="IdLocal" />
+          </Key>
+          <Property Name="IdLocal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
         <EntityType Name="Marca">
           <Key>
             <PropertyRef Name="IdMarca" />
@@ -21,6 +29,14 @@
           <Property Name="Precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="IdMarca" Type="int" />
         </EntityType>
+        <EntityType Name="ProductosLocal">
+          <Key>
+            <PropertyRef Name="IdLocal" />
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdLocal" Type="int" Nullable="false" />
+          <Property Name="IdProducto" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Producto_Marca">
           <End Role="Marca" Type="Self.Marca" Multiplicity="0..1" />
           <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
@@ -33,12 +49,46 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductosLocal_Local">
+          <End Role="Local" Type="Self.Local" Multiplicity="1" />
+          <End Role="ProductosLocal" Type="Self.ProductosLocal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Local">
+              <PropertyRef Name="IdLocal" />
+            </Principal>
+            <Dependent Role="ProductosLocal">
+              <PropertyRef Name="IdLocal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductosLocal_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="ProductosLocal" Type="Self.ProductosLocal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="ProductosLocal">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PracticaEFModelStoreContainer">
+          <EntitySet Name="Local" EntityType="Self.Local" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marca" EntityType="Self.Marca" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductosLocal" EntityType="Self.ProductosLocal" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Producto_Marca" Association="Self.FK_Producto_Marca">
             <End Role="Marca" EntitySet="Marca" />
             <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductosLocal_Local" Association="Self.FK_ProductosLocal_Local">
+            <End Role="Local" EntitySet="Local" />
+            <End Role="ProductosLocal" EntitySet="ProductosLocal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductosLocal_Producto" Association="Self.FK_ProductosLocal_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ProductosLocal" EntitySet="ProductosLocal" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -52,6 +102,11 @@
             <End Role="Marca" EntitySet="Marca" />
             <End Role="Producto" EntitySet="Producto" />
           </AssociationSet>
+          <EntitySet Name="Local" EntityType="PracticaEFModel.Local" />
+          <AssociationSet Name="ProductosLocal" Association="PracticaEFModel.ProductosLocal">
+            <End Role="Local" EntitySet="Local" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Producto">
           <Key>
@@ -62,6 +117,7 @@
           <Property Name="Precio" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="IdMarca" Type="Int32" />
           <NavigationProperty Name="Marca" Relationship="PracticaEFModel.FK_Producto_Marca" FromRole="Producto" ToRole="Marca" />
+          <NavigationProperty Name="Local" Relationship="PracticaEFModel.ProductosLocal" FromRole="Producto" ToRole="Local" />
         </EntityType>
         <EntityType Name="Marca">
           <Key>
@@ -82,6 +138,19 @@
               <PropertyRef Name="IdMarca" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Local">
+          <Key>
+            <PropertyRef Name="IdLocal" />
+          </Key>
+          <Property Name="IdLocal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Direccion" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Producto" Relationship="PracticaEFModel.ProductosLocal" FromRole="Local" ToRole="Producto" />
+        </EntityType>
+        <Association Name="ProductosLocal">
+          <End Type="PracticaEFModel.Local" Role="Local" Multiplicity="*" />
+          <End Type="PracticaEFModel.Producto" Role="Producto" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -107,6 +176,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Local">
+            <EntityTypeMapping TypeName="PracticaEFModel.Local">
+              <MappingFragment StoreEntitySet="Local">
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdLocal" ColumnName="IdLocal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ProductosLocal" TypeName="PracticaEFModel.ProductosLocal" StoreEntitySet="ProductosLocal">
+            <EndProperty Name="Producto">
+              <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+            </EndProperty>
+            <EndProperty Name="Local">
+              <ScalarProperty Name="IdLocal" ColumnName="IdLocal" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -1,0 +1,36 @@
+﻿@model DAL.Local
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Crear Local</title>
+</head>
+<body>
+    <div>
+        <form action="/Locales/Crear" method="post">
+
+            <div>Nombre: @Html.EditorFor(o => o.Nombre)</div>
+            <div>
+                Direccion: @Html.EditorFor(o => o.Direccion)
+            </div>
+            <br />
+            <div>
+                Productos Disponibles:
+            </div>
+            @foreach (DAL.Producto p in ViewBag.Productos)
+            {
+                <div>
+                    @p.Nombre <input type="checkbox" name="IdProductos" value="@p.IdProducto" />
+                </div>
+            }
+
+            <input type="submit" value="Crear" />
+        </form>
+    </div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\psanchez\source\repos\Clase7-EntityFramework\Clase7-Entity-Framework\DAL\PracticaEFModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Pablo\UNLaM\PW3\GIT\Clase7-Entity-Framework\DAL\PracticaEFModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -1,0 +1,34 @@
+﻿@model List<DAL.Local>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Lista de Locales</title>
+</head>
+<body>
+    <div> 
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Productos</th>
+            </tr>
+            @foreach (DAL.Local local in Model)
+            {
+                <tr>
+                    <td>@local.Nombre</td>
+                    <td>@local.Direccion</td>
+                    <td>
+                        @string.Join(",", local.Producto.Select(o=> o.Nombre))
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

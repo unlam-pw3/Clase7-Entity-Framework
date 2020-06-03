@@ -41,5 +41,9 @@ namespace DAL
             return ctx.Producto.Where(o => o.IdMarca == idMarca).ToList();
         }
 
+        public List<Producto> ObtenerPorId(int[] ids)
+        {
+            return ctx.Producto.Where(o => ids.Contains(o.IdProducto)).ToList();
+        }
     }
 }

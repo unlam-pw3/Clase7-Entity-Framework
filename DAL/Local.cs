@@ -12,21 +12,19 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Producto
+    public partial class Local
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Producto()
+        public Local()
         {
-            this.Local = new HashSet<Local>();
+            this.Producto = new HashSet<Producto>();
         }
     
-        public int IdProducto { get; set; }
+        public int IdLocal { get; set; }
         public string Nombre { get; set; }
-        public decimal Precio { get; set; }
-        public Nullable<int> IdMarca { get; set; }
+        public string Direccion { get; set; }
     
-        public virtual Marca Marca { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Local> Local { get; set; }
+        public virtual ICollection<Producto> Producto { get; set; }
     }
 }

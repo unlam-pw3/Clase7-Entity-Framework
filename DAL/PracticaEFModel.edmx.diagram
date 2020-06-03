@@ -6,8 +6,10 @@
     <edmx:Diagrams>
       <Diagram DiagramId="290189db4ecf42e58866fd1a0ae289d3" Name="Diagram1">
         <EntityTypeShape EntityType="PracticaEFModel.Producto" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="PracticaEFModel.Marca" Width="1.5" PointX="0.75" PointY="4" />
+        <EntityTypeShape EntityType="PracticaEFModel.Marca" Width="1.5" PointX="5.125" PointY="4.125" />
         <AssociationConnector Association="PracticaEFModel.FK_Producto_Marca" />
+        <EntityTypeShape EntityType="PracticaEFModel.Local" Width="1.5" PointX="1.25" PointY="4" />
+        <AssociationConnector Association="PracticaEFModel.ProductosLocal" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
