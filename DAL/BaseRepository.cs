@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 
 namespace DAL
@@ -17,7 +18,7 @@ namespace DAL
         public void Crear(T entity)
         {
             dbSet.Add(entity);
-            ctx.SaveChanges();
+            SaveChanges(ctx);
         }
 
         public void Eliminar(int id)
@@ -26,7 +27,7 @@ namespace DAL
             if (entidadAEliminar != null)
             {
                 dbSet.Remove(entidadAEliminar);
-                ctx.SaveChanges();
+                SaveChanges(ctx);
             }
         }
 
@@ -40,6 +41,32 @@ namespace DAL
         public List<T> ObtenerTodos()
         {
             return dbSet.ToList();
+        }
+
+        protected void SaveChanges(PracticaEFEntities ctx)
+        {
+            try
+            {
+                ctx.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                System.Diagnostics.Debug.WriteLine("");
+                System.Diagnostics.Debug.WriteLine("");
+                System.Diagnostics.Debug.WriteLine("**** ENTITY FRAMEWORK DETALLE DE EXCEPCION****");
+
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    System.Diagnostics.Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        System.Diagnostics.Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
         }
     }
 }
