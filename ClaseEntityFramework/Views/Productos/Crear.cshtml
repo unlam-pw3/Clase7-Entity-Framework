@@ -24,6 +24,17 @@
                 @Html.EditorFor(o => Model.Precio)
                 @Html.ValidationMessageFor(o => o.Precio)
             </div>
+            <hr />
+            <div>
+                Detalle
+            </div>
+            <div>Descripcion:</div>
+            @Html.TextAreaFor(o => Model.DetalleProducto.Descripcion)
+            <div>Medidas:</div>
+            @Html.TextAreaFor(o => Model.DetalleProducto.Medidas)
+            <div>Peso:</div>
+            @Html.EditorFor(o => Model.DetalleProducto.Peso)
+            <hr />
 
             <div>
                 <select name="IdMarca">

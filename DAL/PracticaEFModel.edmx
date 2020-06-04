@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PracticaEFModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DetalleProducto">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="Medidas" Type="nvarchar" MaxLength="200" />
+          <Property Name="Peso" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
         <EntityType Name="Local">
           <Key>
             <PropertyRef Name="IdLocal" />
@@ -37,6 +46,18 @@
           <Property Name="IdLocal" Type="int" Nullable="false" />
           <Property Name="IdProducto" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_DetalleProducto_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="DetalleProducto" Type="Self.DetalleProducto" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="DetalleProducto">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Producto_Marca">
           <End Role="Marca" Type="Self.Marca" Multiplicity="0..1" />
           <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
@@ -74,10 +95,15 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PracticaEFModelStoreContainer">
+          <EntitySet Name="DetalleProducto" EntityType="Self.DetalleProducto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Local" EntityType="Self.Local" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marca" EntityType="Self.Marca" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductosLocal" EntityType="Self.ProductosLocal" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DetalleProducto_Producto" Association="Self.FK_DetalleProducto_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="DetalleProducto" EntitySet="DetalleProducto" />
+          </AssociationSet>
           <AssociationSet Name="FK_Producto_Marca" Association="Self.FK_Producto_Marca">
             <End Role="Marca" EntitySet="Marca" />
             <End Role="Producto" EntitySet="Producto" />
@@ -107,6 +133,11 @@
             <End Role="Local" EntitySet="Local" />
             <End Role="Producto" EntitySet="Producto" />
           </AssociationSet>
+          <EntitySet Name="DetalleProducto" EntityType="PracticaEFModel.DetalleProducto" />
+          <AssociationSet Name="FK_DetalleProducto_Producto" Association="PracticaEFModel.FK_DetalleProducto_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="DetalleProducto" EntitySet="DetalleProducto" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Producto">
           <Key>
@@ -118,6 +149,7 @@
           <Property Name="IdMarca" Type="Int32" />
           <NavigationProperty Name="Marca" Relationship="PracticaEFModel.FK_Producto_Marca" FromRole="Producto" ToRole="Marca" />
           <NavigationProperty Name="Local" Relationship="PracticaEFModel.ProductosLocal" FromRole="Producto" ToRole="Local" />
+          <NavigationProperty Name="DetalleProducto" Relationship="PracticaEFModel.FK_DetalleProducto_Producto" FromRole="Producto" ToRole="DetalleProducto" />
         </EntityType>
         <EntityType Name="Marca">
           <Key>
@@ -151,6 +183,28 @@
         <Association Name="ProductosLocal">
           <End Type="PracticaEFModel.Local" Role="Local" Multiplicity="*" />
           <End Type="PracticaEFModel.Producto" Role="Producto" Multiplicity="*" />
+        </Association>
+        <EntityType Name="DetalleProducto">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Medidas" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Peso" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Producto" Relationship="PracticaEFModel.FK_DetalleProducto_Producto" FromRole="DetalleProducto" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_DetalleProducto_Producto">
+          <End Type="PracticaEFModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="PracticaEFModel.DetalleProducto" Role="DetalleProducto" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="DetalleProducto">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -193,6 +247,16 @@
               <ScalarProperty Name="IdLocal" ColumnName="IdLocal" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="DetalleProducto">
+            <EntityTypeMapping TypeName="PracticaEFModel.DetalleProducto">
+              <MappingFragment StoreEntitySet="DetalleProducto">
+                <ScalarProperty Name="Peso" ColumnName="Peso" />
+                <ScalarProperty Name="Medidas" ColumnName="Medidas" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

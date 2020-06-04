@@ -28,5 +28,6 @@ namespace DAL
         public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<Marca> Marca { get; set; }
         public virtual DbSet<Local> Local { get; set; }
+        public virtual DbSet<DetalleProducto> DetalleProducto { get; set; }
     }
 }

@@ -51,6 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="DetalleProducto.cs">
+      <DependentUpon>PracticaEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleProductoRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Local.cs">
       <DependentUpon>PracticaEFModel.tt</DependentUpon>

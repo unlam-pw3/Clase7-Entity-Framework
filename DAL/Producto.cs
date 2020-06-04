@@ -28,5 +28,6 @@ namespace DAL
         public virtual Marca Marca { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Local> Local { get; set; }
+        public virtual DetalleProducto DetalleProducto { get; set; }
     }
 }
