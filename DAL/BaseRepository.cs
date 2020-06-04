@@ -21,7 +21,7 @@ namespace DAL
             SaveChanges(ctx);
         }
 
-        public void Eliminar(int id)
+        public virtual void Eliminar(int id)
         {
             T entidadAEliminar = ObtenerPorId(id);
             if (entidadAEliminar != null)

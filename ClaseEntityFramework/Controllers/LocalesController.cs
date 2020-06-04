@@ -45,5 +45,11 @@ namespace ClaseEntityFramework.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Eliminar(int id)
+        {
+            localRepository.Eliminar(id);
+            return RedirectToAction("Index");
+        }
+
     }
 }

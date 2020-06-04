@@ -11,12 +11,13 @@
     <title>Lista de Locales</title>
 </head>
 <body>
-    <div> 
+    <div>
         <table>
             <tr>
                 <th>Nombre</th>
                 <th>Direccion</th>
                 <th>Productos</th>
+                <th>Eliminar</th>
             </tr>
             @foreach (DAL.Local local in Model)
             {
@@ -24,8 +25,9 @@
                     <td>@local.Nombre</td>
                     <td>@local.Direccion</td>
                     <td>
-                        @string.Join(",", local.Producto.Select(o=> o.Nombre))
+                        @string.Join(",", local.Producto.Select(o => o.Nombre))
                     </td>
+                    <td><a href="/Locales/Eliminar/@local.IdLocal">Eliminar</a></td>
                 </tr>
             }
         </table>
