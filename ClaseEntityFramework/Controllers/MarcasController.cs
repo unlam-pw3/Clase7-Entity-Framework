@@ -24,7 +24,16 @@ namespace ClaseEntityFramework.Controllers
 
         public ActionResult Eliminar(int id)
         {
-            marcaRepository.Eliminar(id);
+            Marca marca = marcaRepository.ObtenerPorId(id);
+            if (marca != null && marca.Producto.Count > 1)
+            {
+                TempData["MensajeValidaciones"] = $"No se puede eliminar Marcas con mas de 1 producto ({string.Join(",", marca.Producto.Select(o=> o.Nombre))})";
+            }
+            else
+            {
+                marcaRepository.Eliminar(id);
+            }
+
             return RedirectToAction("Index");
         }
     }

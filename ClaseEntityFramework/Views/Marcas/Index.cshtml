@@ -12,6 +12,10 @@
 </head>
 <body>
     <div>
+        @if (!string.IsNullOrEmpty(TempData["MensajeValidaciones"] as string))
+        {
+            <strong style="color:red;">@TempData["MensajeValidaciones"]</strong>
+        }
         <table>
             <tr>
                 <th>Nombre</th>
@@ -22,7 +26,7 @@
             {
                 <tr>
                     <td>@marca.Nombre</td>
-                    <td>@string.Join(",", marca.Producto.Select(o=> o.Nombre))</td>
+                    <td>@string.Join(",", marca.Producto.Select(o => o.Nombre))</td>
                     <td><a href="/Marcas/Eliminar/@marca.IdMarca">Eliminar</a></td>
                 </tr>
             }
