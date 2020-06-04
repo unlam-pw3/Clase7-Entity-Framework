@@ -100,6 +100,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\LocalesController.cs" />
+    <Compile Include="Controllers\MarcasController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -114,6 +115,7 @@
     <Content Include="Views\Productos\Modificar.cshtml" />
     <Content Include="Views\Locales\Crear.cshtml" />
     <Content Include="Views\Locales\Index.cshtml" />
+    <Content Include="Views\Marcas\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

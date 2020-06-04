@@ -1,0 +1,32 @@
+﻿@model List<DAL.Marca>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Lista de Marcas</title>
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Productos</th>
+                <th>Eliminar</th>
+            </tr>
+            @foreach (DAL.Marca marca in Model)
+            {
+                <tr>
+                    <td>@marca.Nombre</td>
+                    <td>@string.Join(",", marca.Producto.Select(o=> o.Nombre))</td>
+                    <td><a href="/Marcas/Eliminar/@marca.IdMarca">Eliminar</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>
